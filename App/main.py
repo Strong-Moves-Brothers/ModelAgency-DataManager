@@ -1,6 +1,11 @@
 from App.Register import TeamRegister, StudentRegister
 from App.Team import TeamFactory, StudentFactory
 
+"""
+WARNING: The termination Team and Course can be confusing, but the choice of this name is because, class would be 
+really more confusing.
+"""
+
 def on_press1():
     team = TeamFactory.factory('VIP', 'NOTURNO', '06/04/2020')
     TeamRegister().registrate(team)

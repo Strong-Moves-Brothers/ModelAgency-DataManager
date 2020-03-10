@@ -3,12 +3,20 @@ from Tests.Exceptions import InvalidDate
 
 
 class DateTreatment:
+    """
+    This class contains the methods responsible do the needed procedures related do dates.
+    """
 
     months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
               'Outubro', 'Novembro', 'Dezembro']
 
     @classmethod
     def convert_string_to_date(cls, string):
+        """
+        Converts a string object into a date object.
+        :param string: str -> The input string.
+        :return: A date object.
+        """
         string.strip()
         if '-' in string:
             string = string.split('-')
@@ -23,5 +31,10 @@ class DateTreatment:
 
     @classmethod
     def add_7_years(cls, start_date : date):
+        """
+        This method is responsible for, given a date object, add 7 years to it.
+        :param start_date: A date object.
+        :return: A date object.
+        """
         finish_date = date(start_date.year+7, start_date.month, start_date.day)
         return finish_date
