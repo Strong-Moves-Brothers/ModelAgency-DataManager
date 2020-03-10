@@ -1,4 +1,6 @@
 from datetime import date
+from Tests.Exceptions import InvalidDate
+
 
 class DateTreatment:
 
@@ -9,12 +11,15 @@ class DateTreatment:
     def convert_string_to_date(cls, string):
         string.strip()
         if '-' in string:
-            string.split('-')
+            string = string.split('-')
         elif '/' in string:
-            string.split('/')
+            string = string.split('/')
         else:
-            raise ValueError('Data inválida! Por favor escreva uma data no formato dd-mm-aaaa ou dd/mm/aaaa')
-        return date(int(string[2]), int(string[1]), int(string[0]))
+            raise InvalidDate('Data inválida! Por favor escreva uma data no formato dd-mm-aaaa ou dd/mm/aaaa')
+        try:
+            return date(int(string[2]), int(string[1]), int(string[0]))
+        except:
+            raise InvalidDate('Data inválida! Por favor escreva uma data no formato dd-mm-aaaa ou dd/mm/aaaa')
 
     @classmethod
     def add_7_years(cls, start_date : date):

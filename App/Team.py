@@ -15,7 +15,7 @@ class Team:
         return int(f"{self.start_course.month}{self.start_course.year}")
 
     def create_name(self):
-        month = DateTreatment.months[self.start_course.month].upper()
+        month = DateTreatment.months[self.start_course.month-1].upper()
         return f"{month} {self.start_course.year} - {self.course_type} - {self.shift}"
 
 
