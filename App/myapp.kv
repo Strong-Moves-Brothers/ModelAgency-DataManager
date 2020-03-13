@@ -1,0 +1,105 @@
+<Manager>:
+    MainMenu:
+        name: 'mainMenu'
+    TeamRegisterMenu:
+        name: 'teamRegisterMenu'
+    StudentRegisterMenu:
+        name: 'studentRegisterMenu'
+
+<MainMenu>:
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            id: teamRegisterButton
+            text: 'Registrar uma nova turma'
+            font_size: 60
+            on_release: app.root.current = 'teamRegisterMenu'
+        Button:
+            id: studentRegisterButton
+            text: 'Registrar um novo aluno'
+            font_size: 60
+            on_release: app.root.current = 'studentRegisterMenu'
+        Button:
+            id: exitButton
+            text: 'Sair'
+            font_size: 60
+            on_release: Break
+
+<TeamRegisterMenu>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            id: courseTypeInputBox
+            Label:
+                id: courseTypeInputLabel
+                text: 'Tipo de Curso [NORMAL - VIP]'
+            TextInput:
+                id: courseTypeInput
+        BoxLayout:
+            id: courseShiftInputBox
+            Label:
+                id: courseShiftInputLabel
+                text: 'Turno [MATUTINO - VESPERTINO - NOTURNO]'
+            TextInput:
+                id: courseShiftInput
+        BoxLayout:
+            id: startCourseDateInputBox
+            Label:
+                id: startCourseDateInputLabel
+                text: 'Data de Início (DD/MM/AAA)'
+            TextInput:
+                id: startCourseDateInput
+        BoxLayout:
+            Button:
+                text: 'Voltar'
+                on_release: app.root.current = 'mainMenu'
+            Button:
+                text: 'Registrar'
+                on_release: root.team_register()
+
+<StudentRegisterMenu>:
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            Label:
+                id: nameInputLabel
+                text: 'Nome:'
+            TextInput:
+                id: nameInput
+        BoxLayout:
+            Label:
+                id: birthDateInputLabel
+                text: 'Data de nascimento (dd/mm/aaaa)'
+            TextInput:
+                id: birthDateInput
+        BoxLayout:
+            Label:
+                id: modelTypeInputLabel
+                text: 'Tipo de Modelo'
+            TextInput:
+                id: modelTypeInput
+        BoxLayout:
+            Label:
+                id: isGraduatedInputLabel
+                text: 'Graduado? (0 para não, 1 para sim)'
+            TextInput:
+                id: isGraduatedInput
+        BoxLayout:
+            Label:
+                id: paymentSituationInputLabel
+                text: 'Situação do pagamento [PAGO - PENDENTE - ATRASADO]'
+            TextInput:
+                id: paymentSituationInput
+        BoxLayout:
+            Label:
+                id: teamNameInputLabel
+                text: 'ID da Turma'
+            TextInput:
+                id: teamNameInput
+        BoxLayout:
+            Button:
+                text: 'Voltar'
+                on_release: app.root.current = 'mainMenu'
+            Button:
+                text: 'Registrar'
+                on_release: app.root.current = root.student_register()
