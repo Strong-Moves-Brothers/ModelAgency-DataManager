@@ -1,1 +1,1 @@
-# PyMySQL-cothammer
+# ModelAngency - DataManager
