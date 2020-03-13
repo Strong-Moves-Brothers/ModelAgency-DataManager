@@ -47,7 +47,7 @@ class TeamRegister(DatabaseInitializer):
                     f"name VARCHAR(255), birth_date DATE, model_type VARCHAR(255), " \
                     f"is_graduated BOOL, sit_pay_curse VARCHAR(255), start_course_date DATE " \
                     f"DEFAULT '{team.start_course_date}', finish_course_date DATE DEFAULT " \
-                    f"'{team.finish_course_date}', team_id INT DEFAULT '{team.team_id}');"
+                    f"'{team.finish_course_date}');"
         print(insert_dt)
         self.cursor.execute(insert_dt)
         self.conexao.commit()

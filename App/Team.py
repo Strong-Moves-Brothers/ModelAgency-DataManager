@@ -23,8 +23,7 @@ class TeamFactory:
         cls._input_verify(team_course_type, team_shift)
         team_finish_course_date = DateTreatment.add_7_months(team_start_course_date)
         team_name = cls._generate_team_name(team_start_course_date, team_course_type, team_shift).strip().upper()
-        team_id = cls._generate_team_id(team_start_course_date, team_shift)
-        return Team(team_name, team_course_type, team_shift, team_start_course_date, team_finish_course_date, team_id)
+        return Team(team_name, team_course_type, team_shift, team_start_course_date, team_finish_course_date)
 
     @staticmethod
     def _input_verify(team_course_type : str, team_shift: str):
@@ -35,20 +34,6 @@ class TeamFactory:
             raise InvalidShift('Turno inválido! Escolha entre: MATUTINO, VESPERTINO e NOTURNO.')
         if team_course_type not in ['NORMAL', 'VIP']:
             raise InvalidCourseType('Tipo de curso inválido! Escolha entre: NORMAL e VIP.')
-
-    @staticmethod
-    def _generate_team_id(team_start_course_date : date, team_shift : str):
-        """
-        Generates an unique ID that for this specific team, based on the given parameters.
-        :return: int -> ID
-        """
-        if team_shift == 'MATUTINO':
-            t_f = 0
-        elif team_shift == 'VESPERTINO':
-            t_f = 1
-        else: #team_shift == 'NOTURNO'
-            t_f = 2
-        return int(f"{team_start_course_date.month}{team_start_course_date.year}{t_f}")
 
     @staticmethod
     def _generate_team_name(team_start_course_date : date, team_course_type : str, team_shift : str):
@@ -102,8 +87,7 @@ class Team:
     """
     This class contains the basic attributes of a Team object and is capable of instantiate one.
     """
-    def __init__(self, name : str, course_type : str, shift: str, start_course_date : str,
-                 finish_course_date : date, team_id : date):
+    def __init__(self, name : str, course_type : str, shift: str, start_course_date : str, finish_course_date : date):
         """
         Instantiates a Team object.
         :param name: The Team's name.
@@ -118,7 +102,6 @@ class Team:
         self.shift = shift
         self.finish_course_date = finish_course_date
         self.name = name
-        self.team_id = team_id
 
 
 class Student:
