@@ -5,7 +5,6 @@ from App.Register import TeamRegister,StudentRegister
 
 
 class Manager(ScreenManager):
-
     pass
 
 
