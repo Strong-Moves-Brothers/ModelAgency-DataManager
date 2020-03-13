@@ -14,16 +14,20 @@
             text: 'Registrar uma nova turma'
             font_size: 60
             on_release: app.root.current = 'teamRegisterMenu'
+            on_release: app.root.get_screen('teamRegisterMenu').update()
         Button:
             id: studentRegisterButton
             text: 'Registrar um novo aluno'
             font_size: 60
             on_release: app.root.current = 'studentRegisterMenu'
+            on_release: app.root.get_screen('studentRegisterMenu').update()
         Button:
             id: exitButton
             text: 'Sair'
             font_size: 60
-            on_release: Break
+            on_release: app.root.get_screen('studentRegisterMenu').update()
+            on_release: app.root.get_screen('teamRegisterMenu').update()
+            on_release: app.stop()
 
 <TeamRegisterMenu>:
     BoxLayout:
@@ -32,27 +36,32 @@
             id: courseTypeInputBox
             Label:
                 id: courseTypeInputLabel
-                text: 'Tipo de Curso [NORMAL - VIP]'
-            TextInput:
+                text: 'Tipo de Curso'
+            Spinner:
                 id: courseTypeInput
+                values: root.get_items_course_type()
+                text: self.values[0]
         BoxLayout:
             id: courseShiftInputBox
             Label:
                 id: courseShiftInputLabel
-                text: 'Turno [MATUTINO - VESPERTINO - NOTURNO]'
-            TextInput:
+                text: 'Turno'
+            Spinner:
                 id: courseShiftInput
+                values: root.get_items_course_shift()
+                text: self.values[0]
         BoxLayout:
-            id: startCourseDateInputBox
+            id: courseStartDateInputBox
             Label:
-                id: startCourseDateInputLabel
+                id: courseStartDateInputLabel
                 text: 'Data de Início (DD/MM/AAA)'
             TextInput:
-                id: startCourseDateInput
+                id: courseStartDateInput
         BoxLayout:
             Button:
                 text: 'Voltar'
                 on_release: app.root.current = 'mainMenu'
+                on_release: app.root.get_screen('teamRegisterMenu').update()
             Button:
                 text: 'Registrar'
                 on_release: root.team_register()
@@ -76,30 +85,39 @@
             Label:
                 id: modelTypeInputLabel
                 text: 'Tipo de Modelo'
-            TextInput:
+            Spinner:
                 id: modelTypeInput
+                values: root.get_items_model_type()
+                text: self.values[0]
         BoxLayout:
             Label:
                 id: isGraduatedInputLabel
-                text: 'Graduado? (0 para não, 1 para sim)'
-            TextInput:
+                text: 'Graduado?'
+            Spinner:
                 id: isGraduatedInput
+                values: root.get_items_is_graduated()
+                text: self.values[0]
         BoxLayout:
             Label:
                 id: paymentSituationInputLabel
-                text: 'Situação do pagamento [PAGO - PENDENTE - ATRASADO]'
-            TextInput:
+                text: 'Situação do pagamento'
+            Spinner:
                 id: paymentSituationInput
+                values: root.get_items_payment_situation()
+                text: self.values[0]
         BoxLayout:
             Label:
                 id: teamNameInputLabel
                 text: 'Nome da Turma'
-            TextInput:
+            Spinner:
                 id: teamNameInput
+                values: root.get_team_names()
+                text: self.values[0]
         BoxLayout:
             Button:
                 text: 'Voltar'
                 on_release: app.root.current = 'mainMenu'
+                on_release: app.root.get_screen('studentRegisterMenu').update()
             Button:
                 text: 'Registrar'
-                on_release: app.root.current = root.student_register()
+                on_release: root.student_register()

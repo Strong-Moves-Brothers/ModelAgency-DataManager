@@ -36,5 +36,9 @@ class DateTreatment:
         :param start_date: A date object.
         :return: A date object.
         """
-        finish_date = date(start_date.year, start_date.month+7, start_date.day)
+        if start_date.month+7 > 12:
+            extra_months = start_date.month+7 - 12
+            finish_date = date(start_date.year+1, extra_months, start_date.day)
+        else:
+            finish_date = date(start_date.year, start_date.month+7, start_date.day)
         return finish_date

@@ -7,8 +7,9 @@ class TeamFactory:
     """
     This class contains the methods responsible for the manufacture of a Team object.
     """
+    available_values = {'course_type': ['NORMAL', 'VIP'], 'course_shift': ['MATUTINO', 'VESPERTINO', 'NOTURNO']}
     @classmethod
-    def factory(cls, team_course_type : str, team_shift: str, team_start_course_date : str):
+    def factory(cls, course_type : str, course_shift: str, course_start_date : str):
         """
         This method receive the basic team/course information and returns a Team object built based on the
         specified parameters.
@@ -17,35 +18,37 @@ class TeamFactory:
         :param team_start_course_date: The starting date of this team course.
         :return: A Team object.
         """
-        team_start_course_date = DateTreatment.convert_string_to_date(team_start_course_date)
-        team_course_type = team_course_type.strip().upper()
-        team_shift = team_shift.strip().upper()
+        team_start_course_date = DateTreatment.convert_string_to_date(course_start_date)
+        team_course_type = course_type.strip().upper()
+        team_shift = course_shift.strip().upper()
         cls._input_verify(team_course_type, team_shift)
         team_finish_course_date = DateTreatment.add_7_months(team_start_course_date)
         team_name = cls._generate_team_name(team_start_course_date, team_course_type, team_shift).strip().upper()
         return Team(team_name, team_course_type, team_shift, team_start_course_date, team_finish_course_date)
 
-    @staticmethod
-    def _input_verify(team_course_type : str, team_shift: str):
+    @classmethod
+    def _input_verify(cls, course_type : str, course_shift: str):
         """
         This method is responsible for verifying if some inputs were gave correctly, and case not, stop the manufacture.
         """
-        if team_shift not in ['MATUTINO', 'VESPERTINO', 'NOTURNO']:
-            raise InvalidShift('Turno inválido! Escolha entre: MATUTINO, VESPERTINO e NOTURNO.')
-        if team_course_type not in ['NORMAL', 'VIP']:
-            raise InvalidCourseType('Tipo de curso inválido! Escolha entre: NORMAL e VIP.')
+        if course_shift not in cls.available_values['course_shift']:
+            raise InvalidShift('Turno inválido!')
+        if course_type not in cls.available_values['course_type']:
+            raise InvalidCourseType('Tipo de curso inválido!')
 
     @staticmethod
-    def _generate_team_name(team_start_course_date : date, team_course_type : str, team_shift : str):
+    def _generate_team_name(course_start_date : date, course_type : str, course_shift : str):
         """
         Generates an unique name for this specific team, based on the given parameters.
         :return: str -> Team name
         """
-        month = DateTreatment.months[team_start_course_date.month-1].upper()
-        return f"{month}_{team_start_course_date.year}_{team_course_type}_{team_shift}"
+        month = DateTreatment.months[course_start_date.month-1].upper()
+        return f"{month}_{course_start_date.year}_{course_type}_{course_shift}"
 
 
 class StudentFactory:
+    available_values = {'model_type': ['PASSARELA', 'LIMOUSINE', 'CIRCO'], 'is_graduated': ['SIM', 'NÃO'],
+                        'sit_pay_course': ['PAGO', 'PENDENTE', 'ATRASADO']}
     """"
     This class contains the methods responsible for the manufacture of a Student object.
     """
@@ -64,30 +67,39 @@ class StudentFactory:
         """
         student_name = student_name.strip().upper()
         student_birth_date = DateTreatment.convert_string_to_date(student_birth_date)
-        student_is_graduated = int(student_is_graduated)
         student_model_type = student_model_type.strip().upper()
         student_sit_pay_course = student_sit_pay_course.strip().upper()
-        cls._input_verify(student_model_type, student_sit_pay_course)
+        cls._input_verify(student_model_type, student_sit_pay_course, student_is_graduated)
+        student_is_graduated = int(cls._graduated_input_verify(student_is_graduated))
         return Student(student_name, student_birth_date, student_model_type,
                        student_is_graduated, student_sit_pay_course)
 
-    @staticmethod
-    def _input_verify(student_model_type, student_sit_pay_course):
+    @classmethod
+    def _input_verify(cls, student_model_type, student_sit_pay_course, student_is_graduated):
         """
         This method is responsible for verifying if some inputs were gave correctly, and case not, stop the manufacture.
         """
-        if student_model_type not in ['PASSARELA', 'LIMOUSINE', 'CIRCO']:
-            raise InvalidModelType('Tipo de modelo inválido. Por favor escolha entre: PASSARELA, LIMOUSINE E CIRCO.')
-        if student_sit_pay_course not in ['PAGO', 'PENDENTE', 'ATRASADO']:
-            raise InvalidPaymentStatus(
-                'Situação do pagamento inválida. Por favor escolha entre: PAGO, PENDENTE E ATRASADO')
+        if student_model_type not in cls.available_values['model_type']:
+            raise InvalidModelType('Tipo de modelo inválido.')
+        if student_sit_pay_course not in cls.available_values['sit_pay_course']:
+            raise InvalidPaymentStatus('Situação do pagamento inválida.')
+        if student_is_graduated not in cls.available_values['is_graduated']:
+            raise ValueError('Status de graduação inválido.')
+
+    @staticmethod
+    def _graduated_input_verify(student_is_graduated):
+        if student_is_graduated == 'NÃO':
+            student_is_graduated = 0
+        elif student_is_graduated == 'SIM':
+            student_is_graduated = 1
+        return student_is_graduated
 
 
 class Team:
     """
     This class contains the basic attributes of a Team object and is capable of instantiate one.
     """
-    def __init__(self, name : str, course_type : str, shift: str, start_course_date : str, finish_course_date : date):
+    def __init__(self, name : str, course_type : str, course_shift: str, course_start_date : date, course_finish_date : date):
         """
         Instantiates a Team object.
         :param name: The Team's name.
@@ -97,10 +109,10 @@ class Team:
         :param finish_course_date: The finishing date of this team course.
         :param team_id: This team ID.
         """
-        self.start_course_date = start_course_date
+        self.course_start_date = course_start_date
         self.course_type = course_type
-        self.shift = shift
-        self.finish_course_date = finish_course_date
+        self.course_shift = course_shift
+        self.course_finish_date = course_finish_date
         self.name = name
 
 
