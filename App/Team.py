@@ -21,7 +21,7 @@ class TeamFactory:
         team_course_type = team_course_type.strip().upper()
         team_shift = team_shift.strip().upper()
         cls._input_verify(team_course_type, team_shift)
-        team_finish_course_date = DateTreatment.add_7_years(team_start_course_date)
+        team_finish_course_date = DateTreatment.add_7_months(team_start_course_date)
         team_name = cls._generate_team_name(team_start_course_date, team_course_type, team_shift).strip().upper()
         team_id = cls._generate_team_id(team_start_course_date, team_shift)
         return Team(team_name, team_course_type, team_shift, team_start_course_date, team_finish_course_date, team_id)
@@ -87,23 +87,23 @@ class StudentFactory:
                        student_is_graduated, student_sit_pay_course)
 
     @staticmethod
-    def _input_verify(student_model_type, student_st_pay_course):
+    def _input_verify(student_model_type, student_sit_pay_course):
         """
         This method is responsible for verifying if some inputs were gave correctly, and case not, stop the manufacture.
         """
         if student_model_type not in ['PASSARELA', 'LIMOUSINE', 'CIRCO']:
             raise InvalidModelType('Tipo de modelo inválido. Por favor escolha entre: PASSARELA, LIMOUSINE E CIRCO.')
-        if student_st_pay_course not in ['PAGO', 'PENDENTE', 'ATRASADO']:
+        if student_sit_pay_course not in ['PAGO', 'PENDENTE', 'ATRASADO']:
             raise InvalidPaymentStatus(
                 'Situação do pagamento inválida. Por favor escolha entre: PAGO, PENDENTE E ATRASADO')
 
 
 class Team:
     """
-    This class contains the basic attributes of a Team object and is capable of intantiate one.
+    This class contains the basic attributes of a Team object and is capable of instantiate one.
     """
     def __init__(self, name : str, course_type : str, shift: str, start_course_date : str,
-                 finish_course_date : date, team_id : int):
+                 finish_course_date : date, team_id : date):
         """
         Instantiates a Team object.
         :param name: The Team's name.

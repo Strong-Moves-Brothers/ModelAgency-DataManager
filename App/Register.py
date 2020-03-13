@@ -1,8 +1,4 @@
 from App.Initializer import DatabaseInitializer
-from App.Team import Team, Student
-from App.DateTreatment import DateTreatment
-from datetime import date
-from Tests.Exceptions import InvalidShift, InvalidCourseType, InvalidModelType, InvalidPaymentStatus
 
 
 class StudentRegister(DatabaseInitializer):
@@ -11,7 +7,7 @@ class StudentRegister(DatabaseInitializer):
     """
     def __init__(self, table : str):
         """
-        This method instantiates an StudentRegister object and initializes the database connection
+        This method instantiates a StudentRegister object and initializes the database connection
         :param table: It's the team/table name
         """
         super().__init__()

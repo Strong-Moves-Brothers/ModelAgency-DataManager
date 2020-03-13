@@ -4,7 +4,7 @@ from Tests.Exceptions import InvalidDate
 
 class DateTreatment:
     """
-    This class contains the methods responsible do the needed procedures related do dates.
+    This class contains the methods responsible to the needed procedures related to dates.
     """
 
     months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
@@ -30,11 +30,11 @@ class DateTreatment:
             raise InvalidDate('Data inválida! Por favor escreva uma data no formato dd-mm-aaaa ou dd/mm/aaaa')
 
     @classmethod
-    def add_7_years(cls, start_date : date):
+    def add_7_months(cls, start_date : date):
         """
-        This method is responsible for, given a date object, add 7 years to it.
+        This method is responsible for, given a date object, add 7 months to it.
         :param start_date: A date object.
         :return: A date object.
         """
-        finish_date = date(start_date.year+7, start_date.month, start_date.day)
+        finish_date = date(start_date.year, start_date.month+7, start_date.day)
         return finish_date
