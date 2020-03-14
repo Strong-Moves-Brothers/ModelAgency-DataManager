@@ -32,6 +32,19 @@
 <TeamRegisterMenu>:
     BoxLayout:
         orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: 'Cadastro de Turmas'
+                    app_icon: 'Icons/backbuttonicon.png'
+                    on_release: app.root.current = 'mainMenu'
+                    on_release: app.root.get_screen('teamRegisterMenu').update()
+                ActionButton:
+                    text: 'Sair'
+                    icon: 'Icons/exiticon.png'
+                    on_release: app.root.get_screen('studentRegisterMenu').update()
+                    on_release: app.root.get_screen('teamRegisterMenu').update()
+                    on_release: app.stop()
         BoxLayout:
             id: courseTypeInputBox
             Label:
@@ -59,16 +72,25 @@
                 id: courseStartDateInput
         BoxLayout:
             Button:
-                text: 'Voltar'
-                on_release: app.root.current = 'mainMenu'
-                on_release: app.root.get_screen('teamRegisterMenu').update()
-            Button:
                 text: 'Registrar'
                 on_release: root.team_register()
 
 <StudentRegisterMenu>:
     BoxLayout:
         orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: 'Cadastro de Alunos'
+                    app_icon: 'Icons/backbuttonicon.png'
+                    on_release: app.root.current = 'mainMenu'
+                    on_release: app.root.get_screen('studentRegisterMenu').update()
+                ActionButton:
+                    text: 'Sair'
+                    icon: 'Icons/exiticon.png'
+                    on_release: app.root.get_screen('studentRegisterMenu').update()
+                    on_release: app.root.get_screen('teamRegisterMenu').update()
+                    on_release: app.stop()
         BoxLayout:
             Label:
                 id: nameInputLabel
@@ -114,10 +136,6 @@
                 values: root.get_team_names()
                 text: self.values[0]
         BoxLayout:
-            Button:
-                text: 'Voltar'
-                on_release: app.root.current = 'mainMenu'
-                on_release: app.root.get_screen('studentRegisterMenu').update()
             Button:
                 text: 'Registrar'
                 on_release: root.student_register()

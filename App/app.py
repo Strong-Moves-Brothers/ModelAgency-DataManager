@@ -109,11 +109,11 @@ class StudentRegisterMenu(Screen):
             self.ids.teamNameInput.text = self.ids.teamNameInput.values[0]
 
 
-class MyApp(App):
+class ModelAgencyDataManagerApp(App):
 
     def build(self):
         return Manager()
 
 
 if __name__ == '__main__':
-    MyApp().run()
+    ModelAgencyDataManagerApp().run()
