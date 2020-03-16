@@ -2,6 +2,9 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.app import App
 from App.Team import TeamFactory, StudentFactory
 from App.Register import TeamRegister, StudentRegister
+from kivy.properties import StringProperty
+from kivy.uix.textinput import TextInput
+from kivy.uix.behaviors import FocusBehavior
 
 
 class Manager(ScreenManager):
@@ -107,6 +110,22 @@ class StudentRegisterMenu(Screen):
 
             self.ids.teamNameInput.values = self.get_team_names()
             self.ids.teamNameInput.text = self.ids.teamNameInput.values[0]
+
+
+class DateInput(TextInput):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def insert_text(self, substring, from_undo=False):
+        if len(self.text) == 2:
+            t = f'/{substring}'
+        elif len(self.text) == 5 and self.text.count('/') == 1:
+            t = f'/{substring}'
+        else:
+            t = substring
+
+        return super(DateInput, self).insert_text(t, from_undo=from_undo)
 
 
 class ModelAgencyDataManagerApp(App):
