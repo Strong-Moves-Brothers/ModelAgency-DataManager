@@ -4,11 +4,11 @@ class DatabaseInitializer:
 	"""
 	Classe cuja unica função é: Quando instanciada, abrir uma conexão com o banco de dados específicado na __init__
 	"""
-	def __init__(self):
+	def __init__(self, host, user, passwd, database):
 		self.conexao = pymysql.connect(
-			host="localhost",
-			user="sora",
-			passwd="senha123",
-			database="class_db"
+			host=host,
+			user=user,
+			passwd=passwd,
+			database=database
 			)
 		self.cursor = self.conexao.cursor()

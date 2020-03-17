@@ -2,9 +2,7 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.app import App
 from App.Team import TeamFactory, StudentFactory
 from App.Register import TeamRegister, StudentRegister
-from kivy.properties import StringProperty
 from kivy.uix.textinput import TextInput
-from kivy.uix.behaviors import FocusBehavior
 
 
 class Manager(ScreenManager):

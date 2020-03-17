@@ -9,22 +9,24 @@
 <MainMenu>:
     BoxLayout:
         orientation: 'vertical'
+        padding: 200
+        spacing: 25
         Button:
             id: teamRegisterButton
             text: 'Registrar uma nova turma'
-            font_size: 60
+            font_size: 25
             on_release: app.root.current = 'teamRegisterMenu'
             on_release: app.root.get_screen('teamRegisterMenu').update()
         Button:
             id: studentRegisterButton
             text: 'Registrar um novo aluno'
-            font_size: 60
+            font_size: 25
             on_release: app.root.current = 'studentRegisterMenu'
             on_release: app.root.get_screen('studentRegisterMenu').update()
         Button:
             id: exitButton
             text: 'Sair'
-            font_size: 60
+            font_size: 25
             on_release: app.root.get_screen('studentRegisterMenu').update()
             on_release: app.root.get_screen('teamRegisterMenu').update()
             on_release: app.stop()
