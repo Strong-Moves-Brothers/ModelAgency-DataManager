@@ -10,7 +10,7 @@ class DatabaseInitializer:
 		self.conn = pymysql.connect(
 			host=database_info['host'],
 			user=database_info['user'],
-			port=database_info['port'],
+			port=int(database_info['port']),
 			passwd=database_info['password'],
 			database=database_info['database']
 			)
