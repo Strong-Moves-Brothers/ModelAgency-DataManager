@@ -16,3 +16,11 @@ class InvalidModelType(Exception):
 
 class InvalidPaymentStatus(Exception):
     pass
+
+
+class DatabaseRegisterError(Exception):
+    pass
+
+
+class TableRegisterError(Exception):
+    pass

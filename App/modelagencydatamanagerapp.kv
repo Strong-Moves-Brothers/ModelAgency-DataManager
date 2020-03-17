@@ -5,29 +5,36 @@
         name: 'teamRegisterMenu'
     StudentRegisterMenu:
         name: 'studentRegisterMenu'
+    DatabaseRegisterMenu:
+        name: 'databaseRegisterMenu'
 
 <MainMenu>:
     BoxLayout:
         orientation: 'vertical'
+        padding: 200
+        spacing: 25
         Button:
             id: teamRegisterButton
             text: 'Registrar uma nova turma'
-            font_size: 60
+            font_size: 25
             on_release: app.root.current = 'teamRegisterMenu'
             on_release: app.root.get_screen('teamRegisterMenu').update()
         Button:
             id: studentRegisterButton
             text: 'Registrar um novo aluno'
-            font_size: 60
+            font_size: 25
             on_release: app.root.current = 'studentRegisterMenu'
             on_release: app.root.get_screen('studentRegisterMenu').update()
         Button:
+            id: databaseRegisterButton
+            text: 'Registrar Banco de Dados'
+            font_size: 25
+            on_release: app.root.current = 'databaseRegisterMenu'
+        Button:
             id: exitButton
             text: 'Sair'
-            font_size: 60
-            on_release: app.root.get_screen('studentRegisterMenu').update()
-            on_release: app.root.get_screen('teamRegisterMenu').update()
-            on_release: app.stop()
+            font_size: 25
+            on_release: app.exit()
 
 <TeamRegisterMenu>:
     BoxLayout:
@@ -42,9 +49,7 @@
                 ActionButton:
                     text: 'Sair'
                     icon: 'Icons/exiticon.png'
-                    on_release: app.root.get_screen('studentRegisterMenu').update()
-                    on_release: app.root.get_screen('teamRegisterMenu').update()
-                    on_release: app.stop()
+                    on_release: app.exit()
         BoxLayout:
             id: courseTypeInputBox
             Label:
@@ -88,9 +93,7 @@
                 ActionButton:
                     text: 'Sair'
                     icon: 'Icons/exiticon.png'
-                    on_release: app.root.get_screen('studentRegisterMenu').update()
-                    on_release: app.root.get_screen('teamRegisterMenu').update()
-                    on_release: app.stop()
+                    on_release: app.exit()
         BoxLayout:
             Label:
                 id: nameInputLabel
@@ -133,9 +136,56 @@
                 text: 'Nome da Turma'
             Spinner:
                 id: teamNameInput
-                values: root.get_team_names()
-                text: self.values[0]
         BoxLayout:
             Button:
                 text: 'Registrar'
                 on_release: root.student_register()
+
+<DatabaseRegisterMenu>:
+    BoxLayout:
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: 'Cadastrar Banco de Dados'
+                    app_icon: 'Icons/backbuttonicon.png'
+                    on_release: app.root.current = 'mainMenu'
+                ActionButton:
+                    text: 'Sair'
+                    icon: 'Icons/exiticon.png'
+                    on_release: app.exit()
+        BoxLayout:
+            Label:
+                text: 'Host:'
+            TextInput:
+                id: hostInput
+                text: ''
+        BoxLayout:
+            Label:
+                text: 'Usuário:'
+            TextInput:
+                id: userInput
+                text: ''
+        BoxLayout:
+            Label:
+                text: 'Porta:'
+            TextInput:
+                id: portInput
+                text: ''
+        BoxLayout:
+            Label:
+                text: 'Senha:'
+            TextInput:
+                id: passwordInput
+                text: ''
+        BoxLayout:
+            Label:
+                text: 'Banco:'
+            TextInput:
+                id: databaseInput
+                text: ''
+        BoxLayout
+            Button:
+                text: 'Registrar'
+                on_press: app._call_database_register(root.ids.hostInput.text, root.ids.userInput.text, root.ids.portInput.text, root.ids.passwordInput.text, root.ids.databaseInput.text)
+                on_release: app.root.get_screen('studentRegisterMenu').generate_cache()
