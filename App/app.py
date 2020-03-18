@@ -205,7 +205,11 @@ class ModelAgencyDataManagerApp(App):
             return False
 
     def _call_database_register(self, host, user, port, password, database):
-        self.database_info = DatabaseInitializer.registrate_database_info(host, user, port, password, database)
+        if not port:
+            self.database_info = DatabaseInitializer.registrate_database_info(host=host, user=user, password=password,
+                                                                              database=database)
+        else:
+            self.database_info = DatabaseInitializer.registrate_database_info(host, user, port, password, database)
         self.database = DatabaseInitializer(App.get_running_app().database_info)
 
     def exit(self):
